@@ -1,19 +1,19 @@
-const nextConfig = {
-  distDir: '.next',
-  webpack: (config) => {
+module.exports = ({
+  pageExtensions: ["tsx"],
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push(
-      {
-        test: /\.md$/,
-        loader: 'frontmatter-markdown-loader',
-        options: { mode: ['react-component'] }
-      },
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-    )
+      ...[
+        {
+          test: /\.yml$/,
+          type: "json",
+          use: "yaml-loader",
+        },
+        {
+          test: /\.svg$/,
+          use: "@svgr/webpack",
+        },
+      ]
+    );
     return config;
-  }
-}
-
-module.exports = nextConfig;
+  },
+});
