@@ -1,4 +1,5 @@
 const nextConfig = {
+  distDir: '.next',
   webpack: (config) => {
     config.module.rules.push(
       {
